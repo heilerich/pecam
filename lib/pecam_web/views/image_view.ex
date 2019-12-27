@@ -11,7 +11,7 @@ defmodule PecamWeb.ImageView do
   end
 
   def render("image.json", %{image: image}) do
-    %{number: image.number,
+    %{id: image.id,
       time: image.time,
       data: image.data}
   end

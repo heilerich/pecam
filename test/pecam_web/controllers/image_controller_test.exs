@@ -6,15 +6,13 @@ defmodule PecamWeb.ImageControllerTest do
 
   @create_attrs %{
     data: "some data",
-    number: 42,
     time: "2010-04-17T14:00:00Z"
   }
   @update_attrs %{
     data: "some updated data",
-    number: 43,
     time: "2011-05-18T15:01:01Z"
   }
-  @invalid_attrs %{data: nil, number: nil, time: nil}
+  @invalid_attrs %{data: nil, time: nil}
 
   def fixture(:image) do
     {:ok, image} = Cam.create_image(@create_attrs)
@@ -42,7 +40,6 @@ defmodule PecamWeb.ImageControllerTest do
       assert %{
                "id" => id,
                "data" => "some data",
-               "number" => 42,
                "time" => "2010-04-17T14:00:00Z"
              } = json_response(conn, 200)["data"]
     end
@@ -65,7 +62,6 @@ defmodule PecamWeb.ImageControllerTest do
       assert %{
                "id" => id,
                "data" => "some updated data",
-               "number" => 43,
                "time" => "2011-05-18T15:01:01Z"
              } = json_response(conn, 200)["data"]
     end
