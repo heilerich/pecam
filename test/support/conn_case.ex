@@ -29,6 +29,7 @@ defmodule PecamWeb.ConnCase do
   end
 
   setup _tags do
+    Pecam.TestHelpers.SetupDatabase.setup()
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

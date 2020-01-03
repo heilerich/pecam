@@ -3,23 +3,23 @@ defmodule Mix.Tasks.Pecam.Schema do
 
   @shortdoc "Create memento tables"
 
-  def run(_args) do
-    nodes = [ node() ]
+  def run(_attrs) do
+    nodes = [node()]
 
     Mix.shell().info("Creating schema on disk")
 
-    Memento.stop
+    Memento.stop()
     Memento.Schema.create(nodes)
-    Memento.start
+    Memento.start()
 
     if path = Application.get_env(:mnesia, :dir) do
       :ok = File.mkdir_p!(path)
     end
 
     :code.all_loaded()
-      |> Enum.map(fn {name, _path} -> name end)
-      |> filter_modules
-      |> create_tables(nodes)
+    |> Enum.map(fn {name, _path} -> name end)
+    |> filter_modules
+    |> create_tables(nodes)
   end
 
   defp create_tables(module_atoms, nodes) do

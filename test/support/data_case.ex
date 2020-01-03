@@ -10,10 +10,11 @@ defmodule Pecam.DataCase do
 
   using do
     quote do
-      # import Ecto
-      # import Ecto.Changeset
-      # import Ecto.Query
       import Pecam.DataCase
     end
+  end
+
+  setup _tags do
+    Pecam.TestHelpers.SetupDatabase.setup()
   end
 end

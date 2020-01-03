@@ -7,4 +7,12 @@ defmodule Pecam.Repo.Image do
     type: :ordered_set,
     autoincrement: true
 
+  @spec from_image(Pecam.Cam.Image.t()) :: Pecam.Repo.Image.t()
+  def from_image(image = %Pecam.Cam.Image{}) do
+    %Pecam.Repo.Image{
+      id: image.id,
+      time: image.time,
+      data: image.data
+    }
+  end
 end
