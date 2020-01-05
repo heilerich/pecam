@@ -97,7 +97,7 @@ defmodule Pecam.Cam do
     {:error, :invalid_params, "Value of key data must be binary, got " <> inspect(data)}
   defp write_image(attrs = %{:data => _data, :time => _time} ,_id), do:
     {:error, :invalid_params, "Value of key data must be binary, value of key time must be DateTime, got " <> inspect(attrs)}
-  defp write_image(_attrs, _id), do: {:error, :invalid_params, "Attributes must contain data and time keys"}
+  defp write_image(attrs, _id), do: {:error, :invalid_params, "Attributes must contain data and time keys, got " <> inspect(attrs)}
 
   @doc """
   Deletes a Image.

@@ -11,9 +11,12 @@ defmodule PecamWeb.ImageController do
     render(conn, "index.json", images: images)
   end
 
-  def create(conn, %{"data" => image_data}) do
+  def create(conn, params) do
     {:ok, now} = DateTime.now("Etc/UTC")
-    image_params = %{data: image_data, time: now}
+    image_params = params
+      |> Map.new(fn {k,v} -> {String.to_atom(k),v} end)
+      |> Map.put(:time, now)
+
     with {:ok, %Image{} = image} <- Cam.create_image(image_params) do
       conn
       |> put_status(:created)
@@ -34,13 +37,16 @@ defmodule PecamWeb.ImageController do
     end
   end
 
-  def update(conn, %{"id" => id, "data" => image_data}) do
-    {:ok, image} = Cam.get_image(id)
-    {:ok, now} = DateTime.now("Etc/UTC")
-    image_params = %{data: image_data, time: now}
+  def update(conn, %{"id" => id} = params) do
+    with {:ok, image} <- Cam.get_image(id) do
+      {:ok, now} = DateTime.now("Etc/UTC")
+      image_params = params
+        |> Map.new(fn {k,v} -> {String.to_atom(k),v} end)
+        |> Map.put(:time, now)
 
-    with {:ok, %Image{} = image} <- Cam.update_image(image, image_params) do
-      render(conn, "image.json", image: image)
+      with {:ok, %Image{} = image} <- Cam.update_image(image, image_params) do
+        render(conn, "image.json", image: image)
+      end
     end
   end
 

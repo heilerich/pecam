@@ -1,0 +1,32 @@
+GET http://localhost:4000/api/images
+
+###
+
+POST http://localhost:4000/api/images
+Content-Type: application/json
+
+{
+    "data": "testdata"
+}
+
+###
+#Malformed
+
+POST http://localhost:4000/api/images
+
+###
+
+PUT http://localhost:4000/api/images/3
+Content-Type: application/json
+
+{
+    "data": "testdata2"
+}
+
+###
+
+GET http://localhost:4000/api/images/1
+
+###
+
+DELETE http://localhost:4000/api/images/2
